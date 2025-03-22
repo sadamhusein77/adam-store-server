@@ -39,9 +39,14 @@
                 <label for="coinName" class="form-label">Coin name</label>
                 <select class="form-select" id="basic-usage" data-placeholder="Choose one coin" name="coinName" required>
                   <option selected="selected"></option>
-                  <option value="Gold">Gold</option>
-                  <option value="Diamond">Diamond</option>
-                  <option value="Jewel">Jewel</option>
+                  <% 
+                      const coins = ["Gold", "Diamond", "Jewel"];
+                      coins.forEach(coin => { 
+                  %>
+                      <option value="<%= coin %>">
+                          <%= coin %>
+                      </option>
+                  <% }); %>
               </select>
               </div>
               <div class="mb-3">
