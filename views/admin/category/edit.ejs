@@ -1,0 +1,55 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+<main class="app-main">
+    <!--begin::App Content Header-->
+    <div class="app-content-header">
+      <!--begin::Container-->
+      <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+          <div class="col-sm-6"><h3 class="mb-0">Category</h3></div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-end">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/category">Category</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            </ol>
+          </div>
+        </div>
+        <!--end::Row-->
+      </div>
+      <!--end::Container-->
+    </div>
+    <!--end::App Content Header-->
+    <!--begin::App Content-->
+    <div class="app-content">
+      <!--begin::Container-->
+      <div class="container-fluid"> 
+        <div class="card card-primary card-outline mb-4">
+          <div class="card-header">
+            <div class="card-title">
+              Edit Category Form
+            </div>
+          </div>
+          <!--begin::Body-->
+          <form action="/category/edit/<%= category._id %>?_method=PUT" method="POST">
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="name" class="form-label">Category name</label>
+                <input type="text" value="<%= category.name %>" class="form-control" id="name" name="name" aria-describedby="name" placeholder="Type category name...." required>
+              </div>
+            </div>
+            <!--end::Body-->
+            <!--begin::Footer-->
+            <div class="card-footer" style="display: flex; justify-content: end;">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <!--end::Footer-->
+        </form>
+        </div>
+      </div>
+    </div>
+</main>
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>
