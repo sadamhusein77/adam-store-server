@@ -1,4 +1,4 @@
-<script
+    <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
       integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
       crossorigin="anonymous"
@@ -21,6 +21,22 @@
     <script src="/lib/js/dataTables.js"></script>
     <script src="/lib/js/dataTables.bootstrap5.js"></script>
 
+      <!-- Include jQuery -->
+      <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+      <!-- Include Select2 JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    
+      <script>
+        $(document).ready(function() {
+            $('#basic-usage').select2({
+                theme: "bootstrap-5",
+                width: '100%',
+                placeholder: 'Select an option'
+            });
+        });
+      </script>
+      
     <script>
       new DataTable('#example');
     </script>
@@ -69,13 +85,13 @@
       });
     </script>
     <!-- apexcharts -->
-    <script
+    <!-- <script
       src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
       integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
     <!-- ChartJS -->
-    <script>
+    <!-- <script>
       // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
       // IT'S ALL JUST JUNK FOR DEMO
       // ++++++++++++++++++++++++++++++++++++++++++
@@ -132,20 +148,20 @@
         sales_chart_options,
       );
       sales_chart.render();
-    </script>
+    </script> -->
     <!-- jsvectormap -->
-    <script
+    <!-- <script
       src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"
       integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y="
       crossorigin="anonymous"
-    ></script>
-    <script
+    ></script> -->
+    <!-- <script
       src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"
       integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY="
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
     <!-- jsvectormap -->
-    <script>
+    <!-- <script>
       const visitorsData = {
         US: 398, // USA
         SA: 400, // Saudi Arabia
@@ -250,7 +266,7 @@
 
       const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
       sparkline3.render();
-    </script>
+    </script> -->
     <!--end::Script-->
 </body>
 <!--end::Body-->
