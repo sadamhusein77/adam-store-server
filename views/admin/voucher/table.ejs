@@ -1,0 +1,65 @@
+<table id="example" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th style="text-align: left;">No.</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Nominals</th>
+            <th>Image</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let i = 0; i < voucher.length; i++) { %>
+            <tr>
+                <td style="text-align: left;"><%= i + 1 %></td>
+                <td><%= voucher[i].name %></td>
+                <td><%= voucher[i]?.category?.name ?? ' - ' %></td>
+                <td>
+                    <% voucher[i].nominals.forEach(nominal => { %>
+                        <span class="badge text-bg-warning">
+                            <%= nominal.coinName %> | <%= nominal.coinQuantity %>
+                        </span>
+                    <% }) %>
+                </td>
+                <td>
+                    <% if(voucher[i].thumbnail) { %>
+                        <img src="<%= config.baseurl %>/uploads/<%= voucher[i].thumbnail %>" alt="img-preview" width="100" height="100">
+                    <% } %>
+                </td>
+                <td>
+                    <% if(voucher[i].status === 'Y') { %>
+                        <span class="badge text-bg-success">
+                            Active 
+                        </span>
+                    <% } else { %>
+                        <span class="badge text-bg-danger">
+                            Non Active
+                        </span>
+                    <% } %>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 6px; height: 100%; width: 100%;">
+                        <form action="">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="bi bi-toggles m-1"></i>
+                                <% if(voucher[i].status === 'Y') { %>
+                                        Activate 
+                                <% } else { %>
+                                        Deactivate
+                                <% } %>
+                            </button>
+                        </form>
+                        <form action="/voucher/delete/<%= voucher[i]._id %>?_method=DELETE" method="POST">
+                            <a href="/voucher/edit/<%= voucher[i]._id %>" class="btn btn-sm btn-warning text-white">
+                                <i class="bi bi-pencil m-1"></i>Edit</a>
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash m-1"></i>Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>

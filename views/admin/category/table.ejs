@@ -13,7 +13,7 @@
                 <td><%= category[i].name %></td>
                 <td>
                     <form action="/category/delete/<%= category[i]._id %>?_method=DELETE" method="POST">
-                        <a href="/category/edit/<%= category[i]._id %>" class="btn btn-sm btn-warning">
+                        <a href="/category/edit/<%= category[i]._id %>" class="btn btn-sm btn-warning text-white">
                             <i class="bi bi-pencil m-1"></i>Edit</a>
                         <button type="submit" class="btn btn-sm btn-danger">
                             <i class="bi bi-trash m-1"></i>Delete</button>

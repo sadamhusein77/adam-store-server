@@ -1,0 +1,108 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+<main class="app-main">
+    <!--begin::App Content Header-->
+    <div class="app-content-header">
+      <!--begin::Container-->
+      <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+          <div class="col-sm-6"><h3 class="mb-0">voucher</h3></div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-end">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/voucher">Voucher</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Add</li>
+            </ol>
+          </div>
+        </div>
+        <!--end::Row-->
+      </div>
+      <!--end::Container-->
+    </div>
+    <!--end::App Content Header-->
+    <!--begin::App Content-->
+    <div class="app-content">
+      <!--begin::Container-->
+      <div class="container-fluid"> 
+        <div class="card card-primary card-outline mb-4">
+          <div class="card-header">
+            <div class="card-title">
+              Add Voucher Form
+            </div>
+          </div>
+          <!--begin::Body-->
+          <form action="/voucher/create" method="POST" enctype="multipart/form-data">
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="name" class="form-label">Game Name</label>
+                <input type="text" class="form-control" id="name" name="name" aria-describedby="name" placeholder="Type game name...." required>
+              </div>
+              <div class="mb-3">
+                <label for="category" class="form-label">Choose Category</label>
+                <select class="form-select" id="basic-usage" data-placeholder="Choose one category" name="category" required>
+                    <option selected="selected"></option>
+                    <% category.forEach(item => { %>
+                        <option value="<%= item._id %>">
+                            <%= item.name %>
+                        </option>
+                    <% }); %>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="nominals" class="form-label">Choose Nominal</label>
+                <select class="form-select" id="multiple-select-clear-field" data-placeholder="Choose nominal" name="nominals" multiple>
+                    <% nominal.forEach(nominal => { %>
+                        <option value="<%= nominal._id %>">
+                            <%= nominal.coinName %> | <%= formatToIDR(nominal.price) %> | <%= nominal.coinQuantity %>
+                        </option>
+                    <% }); %>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" class="form-control" id="image" name="image" aria-describedby="image" placeholder="Input image....">
+                <br>
+                <img src="" alt="img-preview" id="preview" style="display: none;">
+              </div>
+            </div>
+            <!--end::Body-->
+            <!--begin::Footer-->
+            <div class="card-footer" style="display: flex; justify-content: end;">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <!--end::Footer-->
+        </form>
+        </div>
+      </div>
+    </div>
+</main>
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>
+
+<script>
+  function readURL(input) {
+  if (!input.files || !input.files[0]) {
+    $('#preview').hide();
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    $('#preview')
+      .attr('src', e.target.result)
+      .css({ 'max-width': '250px', 'max-height': '250px' })
+      .show(); // Show preview when an image is selected
+  };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+
+  // Hide preview if file input is cleared
+  $('#image').change(function () {
+    readURL(this);
+  });
+
+</script>

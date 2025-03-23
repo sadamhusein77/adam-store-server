@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 var dashboardRouter = require('./app/dashboard/router');
 var categoryRouter = require('./app/category/router');
 var nominalRouter = require('./app/nominal/router');
+var voucherRouter = require('./app/voucher/router');
 
 var app = express();
 
@@ -31,12 +32,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/adminlte', express.static(path.join(__dirname, '/node_modules/admin-lte/')));
-app.use('/select2', express.static(path.join(__dirname, '/node_modules/select2-bootstrap-5-theme/dist/')));
+app.use('/select2', express.static(path.join(__dirname, '/node_modules/select2/dist/')));
+app.use('/select2bs', express.static(path.join(__dirname, '/node_modules/select2-bootstrap-5-theme/dist/')));
 app.use('/lib', express.static(path.join(__dirname, '/lib/datatables/')));
 
 app.use('/', dashboardRouter);
 app.use('/category', categoryRouter);
 app.use('/nominal', nominalRouter);
+app.use('/voucher', voucherRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

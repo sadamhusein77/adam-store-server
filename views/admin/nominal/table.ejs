@@ -17,7 +17,7 @@
                 <td><%= formatToIDR(nominal[i].price) %></td>
                 <td>
                     <form action="/nominal/delete/<%= nominal[i]._id %>?_method=DELETE" method="POST">
-                        <a href="/nominal/edit/<%= nominal[i]._id %>" class="btn btn-sm btn-warning">
+                        <a href="/nominal/edit/<%= nominal[i]._id %>" class="btn btn-sm btn-warning text-white">
                             <i class="bi bi-pencil m-1"></i>Edit</a>
                         <button type="submit" class="btn btn-sm btn-danger">
                             <i class="bi bi-trash m-1"></i>Delete</button>
