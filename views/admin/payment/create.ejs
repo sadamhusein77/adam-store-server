@@ -1,0 +1,66 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+<main class="app-main">
+    <!--begin::App Content Header-->
+    <div class="app-content-header">
+      <!--begin::Container-->
+      <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+          <div class="col-sm-6"><h3 class="mb-0">Payment</h3></div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-end">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/payment">Payment</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Add</li>
+            </ol>
+          </div>
+        </div>
+        <!--end::Row-->
+      </div>
+      <!--end::Container-->
+    </div>
+    <!--end::App Content Header-->
+    <!--begin::App Content-->
+    <div class="app-content">
+      <!--begin::Container-->
+      <div class="container-fluid"> 
+        <div class="card card-primary card-outline mb-4">
+          <div class="card-header">
+            <div class="card-title">
+              Add Payment Form
+            </div>
+          </div>
+          <!--begin::Body-->
+          <form action="/payment/create" method="POST">
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="type" class="form-label">Type Payment</label>
+                <input type="text" class="form-control" id="type" name="type" aria-describedby="type" placeholder="Type payment method...." required>
+              </div>
+              <div class="mb-3">
+                <label for="banks" class="form-label">Choose Banks</label>
+                <select class="form-select" id="multiple-select-clear-field" data-placeholder="Choose banks" name="banks" multiple>
+                    <% bank.forEach(item => { %>
+                        <option value="<%= item._id %>">
+                            <%= item.nameBank %> | <%= item.noRekening %>
+                        </option>
+                    <% }); %>
+                </select>
+              </div>
+            </div>
+            <!--end::Body-->
+            <!--begin::Footer-->
+            <div class="card-footer" style="display: flex; justify-content: end;">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <!--end::Footer-->
+        </form>
+        </div>
+      </div>
+    </div>
+</main>
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>

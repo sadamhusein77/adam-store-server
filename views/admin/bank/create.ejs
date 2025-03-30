@@ -1,0 +1,64 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+<main class="app-main">
+    <!--begin::App Content Header-->
+    <div class="app-content-header">
+      <!--begin::Container-->
+      <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+          <div class="col-sm-6"><h3 class="mb-0">Bank</h3></div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-end">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/bank">Bank</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Add</li>
+            </ol>
+          </div>
+        </div>
+        <!--end::Row-->
+      </div>
+      <!--end::Container-->
+    </div>
+    <!--end::App Content Header-->
+    <!--begin::App Content-->
+    <div class="app-content">
+      <!--begin::Container-->
+      <div class="container-fluid"> 
+        <div class="card card-primary card-outline mb-4">
+          <div class="card-header">
+            <div class="card-title">
+              Add Bank Form
+            </div>
+          </div>
+          <!--begin::Body-->
+          <form action="/bank/create" method="POST">
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name Account</label>
+                <input type="text" class="form-control" id="name" name="name" aria-describedby="name" placeholder="Type name account...." required>
+              </div>
+              <div class="mb-3">
+                <label for="nameBank" class="form-label">Name Bank</label>
+                <input type="text" class="form-control" id="nameBank" name="nameBank" aria-describedby="nameBank" placeholder="Type name bank account...." required>
+              </div>
+              <div class="mb-3">
+                <label for="noRekening" class="form-label">Number Account</label>
+                <input type="number" class="form-control" id="noRekening" name="noRekening" aria-describedby="noRekening" placeholder="Type number bank account...." required>
+              </div>
+            </div>
+            <!--end::Body-->
+            <!--begin::Footer-->
+            <div class="card-footer" style="display: flex; justify-content: end;">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <!--end::Footer-->
+        </form>
+        </div>
+      </div>
+    </div>
+</main>
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>

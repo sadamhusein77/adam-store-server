@@ -2,34 +2,19 @@
     <thead>
         <tr>
             <th style="text-align: left;">No.</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Nominals</th>
-            <th>Image</th>
+            <th>Type</th>
             <th>Status</th>
+            <th>Banks</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        <% for (let i = 0; i < voucher.length; i++) { %>
+        <% for (let i = 0; i < payment.length; i++) { %>
             <tr>
                 <td style="text-align: left;"><%= i + 1 %></td>
-                <td><%= voucher[i].name %></td>
-                <td><%= voucher[i]?.category?.name ?? ' - ' %></td>
+                <td><%= payment[i].type %></td>
                 <td>
-                    <% voucher[i].nominals.forEach(nominal => { %>
-                        <span class="badge text-bg-warning">
-                            <%= nominal.coinName %> | <%= nominal.coinQuantity %>
-                        </span>
-                    <% }) %>
-                </td>
-                <td>
-                    <% if(voucher[i].thumbnail) { %>
-                        <img src="<%= config.baseurl %>/uploads/<%= voucher[i].thumbnail %>" alt="img-preview" width="100" height="100">
-                    <% } %>
-                </td>
-                <td>
-                    <% if(voucher[i].status === 'Y') { %>
+                    <% if(payment[i].status === 'Y') { %>
                         <span class="badge text-bg-success">
                             Active 
                         </span>
@@ -40,19 +25,25 @@
                     <% } %>
                 </td>
                 <td>
+                    <% payment[i].banks.forEach(bank => { %>
+                        <%= bank.nameBank %> - <%= bank.noRekening %>
+                        <br>
+                    <% }) %>
+                </td>
+                <td>
                     <div style="display: flex; gap: 6px; height: 100%; width: 100%;">
-                        <form action="/voucher/status/<%= voucher[i]._id %>?_method=PUT" method="POST">
+                        <form action="/payment/status/<%= payment[i]._id %>?_method=PUT" method="POST">
                             <button type="submit" class="btn btn-sm btn-primary">
                                 <i class="bi bi-toggles m-1"></i>
-                                <% if(voucher[i].status === 'Y') { %>
+                                <% if(payment[i].status === 'Y') { %>
                                         Activate 
                                 <% } else { %>
                                         Deactivate
                                 <% } %>
                             </button>
                         </form>
-                        <form action="/voucher/delete/<%= voucher[i]._id %>?_method=DELETE" method="POST">
-                            <a href="/voucher/edit/<%= voucher[i]._id %>" class="btn btn-sm btn-warning text-white">
+                        <form action="/payment/delete/<%= payment[i]._id %>?_method=DELETE" method="POST">
+                            <a href="/payment/edit/<%= payment[i]._id %>" class="btn btn-sm btn-warning text-white">
                                 <i class="bi bi-pencil m-1"></i>Edit</a>
                             <button type="submit" class="btn btn-sm btn-danger">
                                 <i class="bi bi-trash m-1"></i>Delete</button>
