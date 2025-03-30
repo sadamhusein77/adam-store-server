@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { index, viewCreate, actionCreate, viewEdit, actionEdit, actionDelete} = require('./controller');
+const  { isLoginAdmin } = require('../middleware/auth');
+
+router.use(isLoginAdmin);
 
 /* GET home page. */
 router.get('/', index);
