@@ -4,6 +4,6 @@ let categorySchema = mongoose.Schema({
         type: String,
         require: [true, 'Category field must be filled']
     }
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model('Category', categorySchema);

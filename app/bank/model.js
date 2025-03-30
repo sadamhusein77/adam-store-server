@@ -12,6 +12,6 @@ let bankSchema = mongoose.Schema({
         type: String,
         require: [true, 'Number Bank Account field must be filled']
     }
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model('Bank', bankSchema);
