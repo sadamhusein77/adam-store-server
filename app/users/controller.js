@@ -1,123 +1,61 @@
-const Payment = require('./model');
-const Bank = require('../bank/model');
+const User = require('../users/model');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
-    index: async (req, res) => {
+    viewSignin: async (req, res) => {
         try {
             const alertMessage = req.flash("alertMessage");
             const alertStatus = req.flash("alertStatus");
 
-            const alert = { message: alertMessage, status: alertStatus }
-            const payment = await Payment.find()
-            .populate('banks')
+            const alert = { message: alertMessage, status: alertStatus };
+
+            if(!req.session.user) {
+                return res.render('admin/users/view_signin', {
+                    alert
+                });
+            }
+
+            res.redirect('/dashboard');
             
-            res.render('admin/payment/view_payment', {
-                payment,
-                alert
-            });
         } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
-            res.redirect('/payment');
+            res.redirect('/');
         }
     },
-    viewCreate: async (req, res) => {
+    actionSignin: async (req, res) => {
         try {
-            const bank = await Bank.find();
-            res.render('admin/payment/create', {
-                bank
-            });
-        } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
-            req.flash('alertStatus', 'danger');
-            res.redirect('/payment');
-        }
-    },
-    actionCreate: async (req, res) => {
-        try {
-            const { type, banks } = req.body;
-            let payment = await Payment({ type, banks});
-            await payment.save();
-
-            req.flash('alertMessage', "Successfully add payment");
-            req.flash('alertStatus', 'success');
-            res.redirect('/payment');
-        } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
-            req.flash('alertStatus', 'danger');
-            res.redirect('/payment');
-        }
-    },
-    viewEdit: async (req, res) => {
-        try {
-            const { id } = req.params;
-
-            let payment = await Payment.findOne({_id: id})
-            .populate('banks');
-
-            const banks = await Bank.find();
+            const { email, password } = req.body;
+            console.log('pass', password)
+            const check = await User.findOne({ email });
             
-            res.render('admin/payment/edit', {
-                payment,
-                banks
-            });
+
+            if(!check || !check?.status === 'Y') {
+                req.flash('alertMessage', 'Wrong email or password');
+                req.flash('alertStatus', 'danger');
+                return res.redirect('/');
+            }
+
+            const checkPassword = await bcrypt.compare(password, check.password);
+            if(!checkPassword) {
+                req.flash('alertMessage', 'Wrong email or password');
+                req.flash('alertStatus', 'danger');
+                return res.redirect('/');
+            }
+
+            req.session.user = {
+                id: check._id,
+                email: check.email,
+                status: check.status,
+                name: check.name
+            }
+
+            res.redirect('/dashboard');
+
         } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
-            res.redirect('/payment');
+            res.redirect('/');
         }
     },
-    actionEdit: async (req, res) => {
-        try {
-            const { id } = req.params;
-            const { type, banks } = req.body;
-            await Payment.findOneAndUpdate({_id: id}, { type, banks}, { includeResultMetadata: true })
-
-            req.flash('alertMessage', "Successfully edit payment");
-            req.flash('alertStatus', 'success');
-
-            res.redirect('/payment');
-        } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
-            req.flash('alertStatus', 'danger');
-            res.redirect('/payment');
-        }
-    },
-    actionDelete: async (req, res) => {
-        try {
-            const { id } = req.params;
-            await Payment.findOneAndRemove({
-                _id: id
-            }, { includeResultMetadata: true });
-
-            req.flash('alertMessage', "Successfully delete payment");
-            req.flash('alertStatus', 'success');
-            
-            res.redirect('/payment');
-        } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
-            req.flash('alertStatus', 'danger');
-            res.redirect('/payment');
-        }
-    },
-    actionStatus: async (req, res) => {
-        try {
-            const { id } = req.params;
-            let payment = await Payment.findOne({_id: id});
-            let status = payment.status === 'Y' ? 'N' : 'Y';
-
-            payment = await Payment.findOneAndUpdate({
-                _id: id
-            }, {status}, { includeResultMetadata: true });
-
-            req.flash('alertMessage', "Successfully update payment");
-            req.flash('alertStatus', 'success');
-            
-            res.redirect('/payment');
-        } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
-            req.flash('alertStatus', 'danger');
-            res.redirect('/payment');
-        }
-    }
 }

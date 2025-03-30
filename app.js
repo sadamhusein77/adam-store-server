@@ -13,6 +13,7 @@ var nominalRouter = require('./app/nominal/router');
 var voucherRouter = require('./app/voucher/router');
 var bankRouter = require('./app/bank/router');
 var paymentRouter = require('./app/payment/router');
+var usersRouter = require('./app/users/router');
 
 var app = express();
 
@@ -38,7 +39,8 @@ app.use('/select2', express.static(path.join(__dirname, '/node_modules/select2/d
 app.use('/select2bs', express.static(path.join(__dirname, '/node_modules/select2-bootstrap-5-theme/dist/')));
 app.use('/lib', express.static(path.join(__dirname, '/lib/datatables/')));
 
-app.use('/', dashboardRouter);
+app.use('/', usersRouter);
+app.use('/dashboard', dashboardRouter);
 app.use('/category', categoryRouter);
 app.use('/nominal', nominalRouter);
 app.use('/voucher', voucherRouter);
