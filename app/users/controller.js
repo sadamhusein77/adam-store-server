@@ -11,7 +11,8 @@ module.exports = {
 
             if(!req.session.user) {
                 return res.render('admin/users/view_signin', {
-                    alert
+                    alert,
+                    title: 'Signin'
                 });
             }
 
@@ -58,4 +59,8 @@ module.exports = {
             res.redirect('/');
         }
     },
+    actionLogout : (req, res) => {
+        req.session.destroy();
+        res.redirect('/');
+    }
 }
