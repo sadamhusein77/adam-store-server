@@ -1,0 +1,61 @@
+<table id="example" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th style="text-align: left;">No.</th>
+            <th>Game Name</th>
+            <th>Item</th>
+            <th>Total Harga</th>
+            <th>Status</th>
+            <th>Player Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let i = 0; i < transactions.length; i++) { %>
+            <tr>
+                <td style="text-align: left;"><%= i + 1 %></td>
+                <td>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <img src="<%= config.baseurl %>/uploads/<%= transactions[i].historyVoucherTopup.thumbnail %>" alt="thumbnail" width="48px" height="48px">
+                        </li>
+                    </ul>
+                    <%= transactions[i].historyVoucherTopup?.gameName %>
+                    <br>
+                    <%= transactions[i].historyVoucherTopup?.category %>
+                </td>
+                <td>
+                    <%= transactions[i].historyVoucherTopup?.coinQuantity %>
+                    <%= transactions[i].historyVoucherTopup?.coinName %>
+                </td>
+                <td>
+                    <%= formatToIDR(transactions[i].value ?? 0) %>
+                </td>
+                <td>
+                    <span class="badge text-bg-<%= transactions[i].status === 'pending' ? 'warning' : transactions[i].status === 'success' ? 'success' : 'danger' %> ">
+                        <%= transactions[i].status %> 
+                    </span>
+                </td>
+                <td><%= transactions[i]?.player?.name ?? '-' %></td>
+                <td>
+                    <div style="display: flex; gap: 6px; height: 100%; width: 100%;">
+                        <% if(transactions[i].status === 'pending') { %> 
+                            <form action="/transaction/status/<%= transactions[i]._id %>?status=success&_method=PUT" method="POST">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-check-circle m-1"></i>
+                                    Approve
+                                </button>
+                            </form>
+                            <form action="/transaction/status/<%= transactions[i]._id %>?status=failed&_method=PUT" method="POST">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-x-circle m-1"></i>
+                                    Reject
+                                </button>
+                            </form>
+                        <% } %>
+                    </div>
+                </td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
