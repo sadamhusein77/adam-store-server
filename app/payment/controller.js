@@ -18,7 +18,7 @@ module.exports = {
                 title: 'Payment'
             });
         } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
             res.redirect('/payment');
         }
@@ -32,7 +32,7 @@ module.exports = {
                 title: 'Add Payment'
             });
         } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
             res.redirect('/payment');
         }
@@ -47,7 +47,7 @@ module.exports = {
             req.flash('alertStatus', 'success');
             res.redirect('/payment');
         } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
             res.redirect('/payment');
         }
@@ -68,7 +68,7 @@ module.exports = {
                 title: 'Edit Payment'
             });
         } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
             res.redirect('/payment');
         }
@@ -84,7 +84,7 @@ module.exports = {
 
             res.redirect('/payment');
         } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
             res.redirect('/payment');
         }
@@ -101,7 +101,7 @@ module.exports = {
             
             res.redirect('/payment');
         } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
             res.redirect('/payment');
         }
@@ -121,7 +121,7 @@ module.exports = {
             
             res.redirect('/payment');
         } catch (error) {
-            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
             res.redirect('/payment');
         }
